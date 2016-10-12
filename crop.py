@@ -2,6 +2,8 @@ from PIL import Image
 import os
 from PIL import Image, ImageChops
 
+# This is an important change
+
 def trim(im):
     bg = Image.new(im.mode, im.size, im.getpixel((0,0)))
     diff = ImageChops.difference(im, bg)
