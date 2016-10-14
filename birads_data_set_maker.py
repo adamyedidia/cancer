@@ -120,8 +120,14 @@ def putImageInDir(xray, imageCount, ID, attribute):
     else:
         setType = "dev"
 
+
+    if attribute == "unknown":
+        attributeDir = "unknown"
+    else:
+        attributeDir = str(spreadsheetDict[ID][attribute])
+
     os.system("cp " + imageName + " " + getPath(DATASET_PATH, \
-        setType, str(spreadsheetDict[ID][attribute])) + uniqueImageName)
+        setType, attributeDir) + uniqueImageName)
 
     os.chdir("..")
 
@@ -168,17 +174,28 @@ for dirName in topLevelDirWeights:
 #                    if ("R CC" in xray) or ("L CC" in xray) or ("R MLO" in xray) or \
 #                        ("L MLO" in xray):
 
-                    if laterality == "B":
-                        if xray != ".DS_Store":
-                            imageCount = putImageInDir(xray, imageCount, ID, attribute)
+                    if " MLO " in xray or " CC " in xray or " MLO-" in xray \
+                        or " CC-" in xray:
+#                    if True:
 
-                    elif laterality == "R":
-                        if " R " in xray:
-                            imageCount = putImageInDir(xray, imageCount, ID, attribute)
+                        if laterality == "B":
+                            if xray != ".DS_Store":
+                                imageCount = putImageInDir(xray, imageCount, ID, attribute)
 
-                    elif laterality == "L":
-                        if " L " in xray:
-                            imageCount = putImageInDir(xray, imageCount, ID, attribute)
+                        elif laterality == "R":
+                            if " R " in xray:
+                                imageCount = putImageInDir(xray, imageCount, ID, attribute)
+                            elif xray != ".DS_Store":
+                                imageCount = putImageInDir(xray, imageCount, ID, "unknown")
+
+                        elif laterality == "L":
+                            if " L " in xray:
+                                imageCount = putImageInDir(xray, imageCount, ID, attribute)
+                            elif xray != ".DS_Store":
+                                imageCount = putImageInDir(xray, imageCount, ID, "unknown")
+
+#                    else:
+#                        print xray
 
                 os.chdir(IMAGE_PNG_PATH)
 
