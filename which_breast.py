@@ -54,8 +54,8 @@ while True:
                 idToWhichBreastDict[ID] = "L"
                 rowNum += 1
             else:
-#                print report
-#                result = raw_input(str(ID) + " -->")
+                print report
+                result = raw_input(str(ID) + " -->")
                 if result == 'l' or result == 'L':
                     idToWhichBreastDict[ID] = "L"
                     rowNum += 1
